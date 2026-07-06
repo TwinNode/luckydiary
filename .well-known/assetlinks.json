@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.twinnode.twa",
-        "sha256_cert_fingerprints": ["34:DB:DF:60:FA:8A:9C:11:54:2C:D7:CC:88:CF:60:DB:CD:9B:6A:72:C1:B8:F7:6C:26:F9:44:91:27:EE:38:67"]
-      }
-    }]
