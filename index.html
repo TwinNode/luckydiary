@@ -134,14 +134,16 @@ textarea:focus{outline:none; border-color:var(--accent);}
 .simc.hi{background:#fff; border:2px solid var(--accent);}
 .simc .near{background:var(--accent); color:#fff; border-radius:999px;
   font-size:10px; padding:1px 7px; font-weight:700;}
-.sim-exp{width:100%; border:1px dashed var(--line); background:var(--soft);
+.sim-exp,.sim-more{width:100%; border:1px dashed var(--line); background:var(--soft);
   border-radius:10px; padding:7px; font-size:11.5px; color:var(--accent);
-  font-weight:700; margin-bottom:8px;}
+  font-weight:700; margin-bottom:8px; cursor:pointer;}
 .jday{color:#5d6273; text-decoration:none; font-weight:600; cursor:pointer;}
 .jsep{color:var(--muted); margin:0 4px;}
 
 .lrow{border:1px solid var(--line); border-radius:12px; padding:9px 11px; margin-bottom:6px; background:#fff;}
 .lrow-top{cursor:pointer;}
+.lchev{margin-left:6px; color:var(--muted); font-size:11px;}
+.lsub2{margin-top:8px;}
 .lsim-toggle{border:none; background:none; color:var(--accent); font-size:11.5px; font-weight:700;
   padding:7px 0 2px; display:inline-flex; align-items:center; gap:4px; cursor:pointer;}
 .lrow-top{display:flex; align-items:center; gap:5px; flex-wrap:wrap; font-size:12.5px; font-weight:700;}
@@ -168,11 +170,18 @@ textarea:focus{outline:none; border-color:var(--accent);}
 .st-chip{border:1px solid var(--line); background:#fff; border-radius:999px;
   padding:5px 11px; font-size:11.5px; color:var(--muted);}
 .st-chip.on{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700;}
-.st-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px;}
-.st-card{background:var(--card); border-radius:14px; padding:10px 4px; text-align:center;
+.st-cards{margin-bottom:14px;}
+.st-summary{background:var(--card); border-radius:14px; padding:2px 14px;
   box-shadow:0 1px 3px rgba(90,60,40,.06);}
-.st-card .v{font-size:18px; font-weight:800;}
-.st-card .l{font-size:10.5px; color:var(--muted); margin-top:2px;}
+.sr{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:10px 0; border-bottom:1px solid var(--line);}
+.sr:last-child{border-bottom:none;}
+.sl{font-size:12px; color:var(--muted); font-weight:700; white-space:nowrap; flex:none;}
+.sv{font-size:13px; font-weight:700; text-align:right; display:flex; gap:8px 10px;
+  flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+.sv .kw{white-space:nowrap;}
+.sv .kwn{color:var(--muted); font-weight:600;}
+.sv .lk{white-space:nowrap;}
 .st-legend{display:flex; gap:8px; flex-wrap:wrap; font-size:10.5px; color:var(--muted); margin-bottom:8px;}
 .st-legend i{display:inline-block; width:9px; height:9px; border-radius:3px; margin-right:3px;}
 .st-row{display:flex; align-items:baseline; justify-content:space-between;
@@ -216,6 +225,15 @@ select,.set-row input{border:1px solid var(--line); border-radius:10px; backgrou
 .daeun-row input.bad{border-color:#c0625f; background:#fbeeee;}
 .daeun-row .rm{border:none; background:none; color:var(--muted); font-size:14px;}
 .daeun-gods{font-size:11px; color:var(--muted); margin:-2px 0 8px 2px;}
+.cur-badge{background:var(--accent); color:#fff; border-radius:999px; font-size:9px; font-weight:700; padding:1px 6px; margin-left:4px;}
+.wg{flex:1; min-width:0; width:100%; border:1px solid var(--line); border-radius:10px; background:#fff;
+  padding:8px 2px; font-size:13px; text-align:center;}
+.ai-btn{width:100%; border:none; background:var(--accent); color:#fff; border-radius:12px;
+  padding:11px; font-size:13px; font-weight:700; margin-bottom:10px; cursor:pointer;}
+.toast{position:fixed; left:50%; bottom:32px; transform:translateX(-50%); background:var(--dark);
+  color:#fff; padding:11px 17px; border-radius:12px; font-size:13px; z-index:300; max-width:88%;
+  text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.28); opacity:0; transition:opacity .2s;}
+.toast.show{opacity:1;}
 .btn{border:none; border-radius:12px; padding:11px 14px; font-size:13px; font-weight:700;}
 .btn.primary{background:var(--accent); color:#fff;}
 .btn.ghost{background:#fff; border:1px solid var(--line);}
@@ -228,11 +246,22 @@ select,.set-row input{border:1px solid var(--line); border-radius:10px; backgrou
 .unse-title .dt-main{flex:1;}
 .unse-sub{font-size:11px; color:var(--muted); font-weight:600; margin-left:6px;}
 .unse-mo{padding:11px 13px; margin-bottom:6px;}
-.unse-mohead{display:flex; align-items:center; gap:7px; font-size:14px; font-weight:800; cursor:pointer;}
-.unse-mohead .hj{font-size:15px;}
-.unse-dot{width:7px; height:7px; border-radius:50%; background:var(--accent);}
-.unse-chev{margin-left:auto; color:var(--muted); font-size:12px;}
-.unse-mohead .unse-meta{font-size:11px; color:var(--muted); font-weight:600; margin-left:5px;}
+.unse-mohead{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;}
+.um-left{font-size:14px; font-weight:800; display:flex; align-items:center; flex-wrap:wrap;}
+.um-left .hj{font-size:15px; margin-right:3px;}
+.um-right{font-size:11px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:2px; white-space:nowrap;}
+.god-pill{background:var(--accent); color:#fff; font-size:10px; font-weight:700;
+  border-radius:999px; padding:1px 8px; margin-left:6px;}
+.term-bubble{border:none; background:none; padding:0 0 0 3px; font-size:12px; line-height:1; cursor:pointer;}
+.unse-dot{width:7px; height:7px; border-radius:50%; background:var(--accent); margin-left:3px;}
+.unse-line2{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:5px; font-size:12.5px;}
+.un-state{color:var(--ink); font-weight:600;}
+.un-state.tg{font-weight:800;}
+.rel{font-weight:800;}
+.utag{background:var(--chipbg); color:var(--muted); border-radius:999px;
+  font-size:10.5px; font-weight:700; padding:1px 8px;}
+.term-tip{position:absolute; z-index:100; max-width:262px; background:var(--dark); color:#fff;
+  font-size:12px; line-height:1.55; padding:9px 12px; border-radius:11px; box-shadow:0 4px 16px rgba(0,0,0,.25);}
 .term-pill{background:#5d6273; color:#fff; font-size:9px; font-weight:700;
   border-radius:999px; padding:1px 7px; margin-left:5px;}
 .stars{display:inline-flex; gap:2px;}
@@ -244,10 +273,11 @@ select,.set-row input{border:1px solid var(--line); border-radius:10px; backgrou
 .rate-lbl{font-size:12px; font-weight:700; color:var(--muted);}
 .chart-legend{display:flex; gap:14px; font-size:11px; color:var(--muted); margin-top:6px;}
 .chart-legend i{display:inline-block; width:16px; border-top:2px solid; vertical-align:4px; margin-right:4px;}
-textarea.unse-ta{margin-top:10px; min-height:88px;}
+textarea.unse-ta{margin-top:10px; min-height:88px; overflow:hidden; resize:none;}
 textarea.unse-ci{flex:1; border:1px solid var(--line); border-radius:10px; background:#fff;
-  padding:8px 10px; font-size:13px; font-family:inherit; line-height:1.5; resize:vertical; min-height:44px;}
-.unse-cs{border:none; background:var(--accent); color:#fff; border-radius:10px; padding:0 16px; font-size:12px; font-weight:700; align-self:stretch;}
+  padding:6px 10px; font-size:13px; font-family:inherit; line-height:1.5; resize:none; overflow:hidden; min-height:22px;}
+.cmt-add-row .unse-cs{border:none; background:#b6b8c0; color:#fff; border-radius:10px; padding:0 16px; font-size:12px; font-weight:700; align-self:stretch; transition:background .15s;}
+.cmt-add-row .unse-cs.active{background:var(--accent);}
 .cycle-div{border-top:3px solid var(--accent); margin:2px 4px 12px; text-align:center;}
 .cycle-div span{position:relative; top:-9px; background:var(--bg); color:var(--accent);
   font-size:10.5px; font-weight:700; padding:0 8px;}
@@ -273,7 +303,7 @@ textarea.unse-ci{flex:1; border:1px solid var(--line); border-radius:10px; backg
       <div class="cal-note" id="calNote">십성은 일간 기준 · 절기일은 붉은 글씨로 표시돼요.</div>
     </div>
     <div class="card" id="dayCard"></div>
-    <div class="card">
+    <div class="card" id="similarCard">
       <span class="section-label">비슷했던 임상 기록</span>
       <div id="similarBox"></div>
     </div>
@@ -335,12 +365,19 @@ textarea.unse-ci{flex:1; border:1px solid var(--line); border-radius:10px; backg
 
   <section id="view-settings" hidden>
     <div class="card">
-      <span class="section-label">일간</span>
+      <span class="section-label">일간 · 원국</span>
       <div class="set-row">
         <label>일간</label>
         <select id="dmSel"></select>
       </div>
-      <div class="hint">십성 계산의 기준. 바꾸면 달력·매칭 전체가 즉시 다시 계산돼요.</div>
+      <div class="set-row" style="margin-top:6px;">
+        <label>원국</label>
+        <input class="wg" data-p="si" maxlength="2" placeholder="시주">
+        <input class="wg" data-p="il" maxlength="2" placeholder="일주">
+        <input class="wg" data-p="wol" maxlength="2" placeholder="월주">
+        <input class="wg" data-p="yeon" maxlength="2" placeholder="연주">
+      </div>
+      <div class="hint">일간은 십성 계산 기준(바꾸면 전체 재계산). 원국(시·일·월·연주 간지)은 AI 분석 프롬프트에 쓰여요.</div>
     </div>
     <div class="card">
       <span class="section-label">대운</span>
@@ -388,6 +425,63 @@ function twelveState(s,b){
   const idx=(s%2===0)?(((b-start)%12+12)%12):(((start-b)%12+12)%12);
   return UNSEONG[idx];
 }
+// 지장간(정기·중기·여기) 천간 인덱스 — 통근 판정용
+const JIJANGGAN=[[8,9],[9,7,5],[4,2,0],[0,1],[1,9,4],[4,6,2],[2,5,3],[3,1,5],[4,8,6],[6,7],[7,3,4],[4,0,8]];
+function tonggeun(s,b){ const el=Math.floor(s/2); return JIJANGGAN[b].some(x=>Math.floor(x/2)===el); }
+// 지지 관계 (세운지 vs 월운지). 육합은 합화 오행 색, 나머지는 색 없음
+const YUKHAP={'0,1':2,'2,11':0,'3,10':1,'4,9':3,'5,8':4,'6,7':1}; // 자축土 인해木 묘술火 진유金 사신水 오미火
+const CHUNG=[[0,6],[1,7],[2,8],[3,9],[4,10],[5,11]];
+const WONJIN={'0,7':1,'1,6':1,'2,9':1,'3,8':1,'4,11':1,'5,10':1};
+const HYUNG=[[2,5],[5,8],[2,8],[1,10],[10,7],[1,7],[0,3]];
+const PA=[[0,9],[3,6],[5,8],[2,11],[1,4],[7,10]];
+const HAE=[[0,7],[1,6],[2,5],[3,4],[8,11],[9,10]];
+function hasPair(list,a,b){ return list.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a)); }
+function branchRel(a,b){ // a=세운지, b=월운지
+  const nm=(x,y,s)=>BRANCHES[x]+BRANCHES[y]+s;
+  if(a===b){ return [4,6,9,11].includes(a)?{label:nm(a,b,'자형'),color:null}:null; }
+  const key=[Math.min(a,b),Math.max(a,b)].join(',');
+  if(YUKHAP[key]!=null) return {label:nm(a,b,'합'), color:YUKHAP[key]};
+  if(hasPair(CHUNG,a,b)) return {label:nm(a,b,'충'), color:null};
+  if(hasPair(HYUNG,a,b)) return {label:nm(a,b,'형'), color:null};
+  if(WONJIN[key]!=null) return {label:nm(a,b,'원진'), color:null};
+  if(hasPair(PA,a,b)) return {label:nm(a,b,'파'), color:null};
+  if(hasPair(HAE,a,b)) return {label:nm(a,b,'해'), color:null};
+  return null;
+}
+function unseTags(key){
+  const e=state.unse[key]; if(!e) return [];
+  const set=new Set();
+  const scan=t=>{ const r=/#([0-9A-Za-z가-힣_]+)/g; let m; while((m=r.exec(t||''))) set.add(m[1]); };
+  scan(e.text); (e.comments||[]).forEach(c=>scan(c.text));
+  return [...set];
+}
+const TERM_DEF={
+  '입춘':'봄의 시작. 한 해와 새해 사주(연주)가 시작되는 명리학의 진짜 새해 첫날입니다.',
+  '경칩':'개구리가 깨어남. 만물이 겨울잠에서 깨어나고, 새로운 생명력이 솟구치는 시기입니다.',
+  '청명':'하늘이 맑아짐. 완연한 봄기운으로 날씨가 화창해져 농사 준비를 본격적으로 시작합니다.',
+  '입하':'여름의 시작. 푸른 잎이 우거지기 시작하며 겨울·봄의 기운이 완전히 물러납니다.',
+  '망종':'씨앗 뿌리기. 까락(망)이 있는 곡식(벼·보리 등)의 씨를 뿌리고 모내기를 하는 시기입니다.',
+  '소서':'작은 더위. 본격적인 한여름 무더위와 장마가 시작되는 시점입니다.',
+  '입추':'가을의 시작. 아직 낮에는 더위가 남아있지만, 밤에는 서늘한 바람이 불기 시작합니다.',
+  '백로':'흰 이슬. 밤 기온이 내려가 풀잎에 하얀 이슬이 맺히며 곡식이 영글어갑니다.',
+  '한로':'찬 이슬. 이슬이 찬 공기를 만나 서리로 변하기 직전의 시기로, 단풍이 짙어집니다.',
+  '입동':'겨울의 시작. 땅과 물이 얼기 시작하며 동물들이 겨울잠을 자러 들어갑니다. (김장철)',
+  '대설':'큰 눈. 1년 중 눈이 가장 많이 내리는 시기로, 매서운 한겨울 추위가 이어집니다.',
+  '소한':'작은 추위. 이름은 작은 추위이지만, 대한보다 더 매섭고 실질적으로 1년 중 가장 추운 시기입니다.'
+};
+let termTipEl=null;
+function hideTermTip(){ if(termTipEl){ termTipEl.remove(); termTipEl=null; } }
+function showTermTip(btn, name){
+  hideTermTip();
+  const tip=document.createElement('div');
+  tip.className='term-tip'; tip.textContent=TERM_DEF[name]||name;
+  document.body.appendChild(tip);
+  const r=btn.getBoundingClientRect();
+  tip.style.left=Math.max(8, Math.min(window.innerWidth-tip.offsetWidth-8, r.left))+'px';
+  tip.style.top=(window.scrollY+r.bottom+6)+'px';
+  termTipEl=tip;
+  setTimeout(()=>document.addEventListener('click', hideTermTip, {once:true}), 0);
+}
 const MOODS=[
   {k:'best', e:'🤩', t:'최고에요'},
   {k:'good', e:'👍', t:'좋아요'},
@@ -421,6 +515,7 @@ function defaultState(){
       {gz:'경진', start:'2026-02-17', end:'2036-02-16'},
       {gz:'신사', start:'2036-02-17', end:'2046-02-16'},
       {gz:'임오', start:'2046-02-17', end:'2056-02-16'}],
+    wonguk:{si:'', il:'', wol:'', yeon:''},
     entries:{}, unse:{}};
 }
 let state=load();
@@ -441,6 +536,7 @@ function load(){
       for(const k in o.unse){
         if(!Array.isArray(o.unse[k].comments)) o.unse[k].comments=[];
       }
+      if(!o.wonguk || typeof o.wonguk!=='object') o.wonguk={si:'',il:'',wol:'',yeon:''};
       return o;
     }
   }catch(e){}
@@ -456,6 +552,7 @@ let view='diary';
 let calMode='cal';
 let moodSel='best';
 let expandedRow=null;
+let listOpen=new Set();
 let saveTimer=null;
 let unseSamhap='all', unseOpen=null, unseType='wol';
 
@@ -639,7 +736,7 @@ function renderCal(){
     const p=pillarOfDate(ds), g=godsOf(p);
     const en=state.entries[ds];
     const rec=hasContent(en);
-    const em=rec?((en.mood&&(MOODS.find(m=>m.k===en.mood)||{}).e)||'📝'):'';
+    const em=rec?((en.mood&&(MOODS.find(m=>m.k===en.mood)||{}).e)||'❔'):'';
     const term=termOnDate(ds);
     const cls='cell'+(rec?' rec':'')+(ds===todayStr?' today':'')+(ds===sel?' sel':'');
     html+='<button class="'+cls+'" data-d="'+ds+'">'+
@@ -652,7 +749,7 @@ function renderCal(){
   html+='</div>';
   calBox.innerHTML=html;
   calBox.querySelectorAll('.cell[data-d]').forEach(c=>{
-    c.onclick=()=>{sel=c.dataset.d; simExpandF=simExpandP=false; renderAll();};
+    c.onclick=()=>{sel=c.dataset.d; simMoreOpen=false; renderAll();};
   });
   const sp=pillarOfDate(sel), pd=addDays(sel,-60), nd=addDays(sel,60);
   const note=document.getElementById('calNote');
@@ -662,7 +759,7 @@ function renderCal(){
     '<a class="jday" data-d="'+nd+'">다음 '+gzHj(sp)+'일: '+dsDotDow(nd)+'</a>';
   note.querySelectorAll('.jday').forEach(a=>{
     a.onclick=()=>{sel=a.dataset.d; cur={y:+sel.slice(0,4), m:+sel.slice(5,7)};
-      simExpandF=simExpandP=false; renderAll();};
+      simMoreOpen=false; renderAll();};
   });
 }
 function dsDotDow(ds){const [y,m,d]=ds.split('-').map(Number);
@@ -681,51 +778,82 @@ function renderList(){
   const days=Object.keys(state.entries)
     .filter(ds=>ds>=pre && ds<=post && hasContent(state.entries[ds]))
     .sort();
+  const aiBtn='<button class="ai-btn" id="aiPromptBtn">🤖 최근 3개월 AI 분석 프롬프트 복사</button>';
+  const attach=()=>{
+    const b=document.getElementById('aiPromptBtn');
+    if(b) b.onclick=async()=>{
+      const p=buildAIPrompt();
+      try{ await navigator.clipboard.writeText(p); }
+      catch(e){ const ta=document.createElement('textarea'); ta.value=p; document.body.appendChild(ta);
+        ta.select(); try{document.execCommand('copy');}catch(_){} ta.remove(); }
+      toast('프롬프트와 3개월 일운 기록이 복사되었습니다.');
+    };
+  };
   if(!days.length){
-    box.innerHTML='<div class="empty">이 달에는 아직 기록이 없어요.</div>';
+    box.innerHTML=aiBtn+'<div class="empty">이 달에는 아직 기록이 없어요.</div>';
+    attach();
     return;
   }
-  box.innerHTML=days.map(ds=>{
+  box.innerHTML=aiBtn+days.map(ds=>{
     const p=pillarOfDate(ds), g=godsOf(p), en=state.entries[ds];
     const m=MOODS.find(x=>x.k===en.mood);
-    const prev=prevSamePairs(ds);
-    const open=(expandedRow===ds);
-    let h='<div class="lrow" data-d="'+ds+'">'+
-      '<div class="lrow-top" data-jump="'+ds+'">'+
+    const open=listOpen.has(ds);
+    let h='<div class="lrow'+(open?' open':'')+'">'+
+      '<div class="lrow-top" data-t="'+ds+'">'+
       '<span class="d">'+fmtShort(ds)+' ('+dowOf(ds)+')</span>'+
       gzHj(p)+'<span>'+g.sg+' '+g.bg+'</span>'+
-      ((en.comments&&en.comments.length)?'<span class="cbadge">💬'+en.comments.length+'</span>':'')+
       (m?'<span class="em2">'+m.e+'</span>':'')+
+      '<span class="lchev">'+(open?'▴':'▾')+'</span>'+
       '</div>'+
       (en.text?'<div class="lrow-text">'+escTags(en.text)+'</div>':'')+
-      (tagsOf(en).length?'<div class="tags">'+tagChipsHTML(en,false)+'</div>':'');
-    if(prev.length){
-      h+='<button class="lsim-toggle" data-x="'+ds+'">비슷했던 임상 기록 '+prev.length+' '+(open?'▴':'▾')+'</button>';
-      if(open){
-        h+='<div class="lsub">'+
-          prev.slice(0,5).map(d2=>{
-            const en2=state.entries[d2], m2=MOODS.find(x=>x.k===en2.mood);
-            return '<div class="lsub-row" data-d="'+d2+'">'+
-              '<span class="d">'+fmtShort(d2)+' ('+dowOf(d2)+')</span> '+
-              (en2.text?escTags(en2.text):'(기분만 기록)')+(m2?' '+m2.e:'')+'</div>';
-          }).join('')+
-          (prev.length>5?'<div class="lsub-head">'+(prev.length-5)+'개 더 있음</div>':'')+
-          '</div>';
-      }
+      (en.comments||[]).map(c=>'<div class="cmt"><span class="cmt-ts">'+fmtTs(c.ts)+'</span><span class="cmt-tx">'+esc(c.text)+'</span></div>').join('');
+    if(open){
+      const {cands,hi}=similarMatchesFor(ds);
+      h+='<div class="lsub2">'+
+        (cands.length? '<div class="lsub-head">비슷했던 임상 기록</div>'+cands.slice(0,5).map(c=>simCardHTML(c, c.ds===hi)).join('')
+         : '<div class="hint" style="margin:6px 0 0;">비슷한 기록이 없어요.</div>')+
+        '</div>';
     }
-    h+='</div>';
-    return h;
+    return h+'</div>';
   }).join('');
   box.querySelectorAll('.lrow-top').forEach(el=>{
-    el.onclick=()=>jumpTo(el.dataset.jump);
+    el.onclick=()=>{const ds=el.dataset.t; if(listOpen.has(ds)) listOpen.delete(ds); else listOpen.add(ds); renderList();};
   });
-  box.querySelectorAll('.lsim-toggle').forEach(el=>{
-    el.onclick=(e)=>{e.stopPropagation();
-      const ds=el.dataset.x; expandedRow=(expandedRow===ds)?null:ds; renderList();};
-  });
-  box.querySelectorAll('.lsub-row').forEach(el=>{
+  box.querySelectorAll('.lsub2 .sim').forEach(el=>{
     el.onclick=(e)=>{e.stopPropagation(); jumpTo(el.dataset.d);};
   });
+  attach();
+}
+function toast(msg){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),260); }, 2200);
+}
+function buildAIPrompt(){
+  const cy=+todayStr.slice(0,4), cm=+todayStr.slice(5,7);
+  let sm=cm-2, sy=cy; while(sm<1){sm+=12; sy--;}
+  const start=ymd(sy,sm,1);
+  const end=ymd(cy,cm,new Date(Date.UTC(cy,cm,0)).getUTCDate());
+  const w=state.wonguk||{};
+  const wong=[w.yeon&&w.yeon+'년', w.wol&&w.wol+'월', w.il&&w.il+'일', w.si&&w.si+'시'].filter(Boolean).join(' ')||'(원국 미입력)';
+  const dm=state.dayMaster, ilgan=dm+ELEM_NAMES[Math.floor(STEMS.indexOf(dm)/2)];
+  const du=daeunFor(todayStr), daeStr=du?du.gz+'대운':'(대운 미입력)';
+  const mp=monthPillar(todayStr), wolStr=STEMS[mp.s]+BRANCHES[mp.b]+'월';
+  const days=Object.keys(state.entries).filter(ds=>ds>=start&&ds<=end&&hasContent(state.entries[ds])).sort();
+  const groups={}, gGod={}, order=[];
+  days.forEach(ds=>{
+    const mpp=monthPillar(ds), mk=STEMS[mpp.s]+BRANCHES[mpp.b]+'월';
+    if(!groups[mk]){groups[mk]=[]; order.push(mk); const mg=godsOf(mpp); gGod[mk]=mg.sg+mg.bg;}
+    const p=pillarOfDate(ds), g=godsOf(p), gz=STEMS[p.s]+BRANCHES[p.b];
+    const m=MOODS.find(x=>x.k===state.entries[ds].mood);
+    const dstr=ds.slice(2,4)+'.'+(+ds.slice(5,7))+'.'+(+ds.slice(8,10));
+    const txt=(state.entries[ds].text||'').replace(/\s+/g,' ').trim();
+    groups[mk].push(dstr+' '+gz+'일('+g.sg+g.bg+') '+(m?m.t:'무기분')+(txt?', '+txt:''));
+  });
+  const data=order.length? order.map(mk=>'['+mk+'] {'+gGod[mk]+'}\n'+groups[mk].join('\n')).join('\n\n') : '(기록 없음)';
+  return '사주 명리학의 고수 관점에서 대운과 세운이라는 거대한 틀 안에서 월운과 일운을 맞이했을 때의 운의 흐름을 심층 분석해줘.\n'+
+    '내 사주 일간은 {'+ilgan+'}이고, 원국은 {'+wong+'}고 현재 대운은 {'+daeStr+'}이야. 아래는 내 실제 3개월 임상기록이야. 기간은 {'+start+'}부터 {'+end+'}까지. 이번달은 {'+wolStr+'}이고 그동안 3개월 임상을 바탕으로 어떤 오행/십성일때 길흉인지 분석해주고 그 근거를 객관적으로 제시해줘.\n\n'+data;
 }
 
 // ── 선택 날짜 카드 ────────────────────────────────────
@@ -824,17 +952,18 @@ function flashSaved(){
   },1500);
 }
 
-// ── 비슷한 기운의 날 (과거+미래, 가까운 순) ────────────
-let simExpandF=false, simExpandP=false;
+// ── 비슷했던 임상 기록 ────────────────────────────────
+let simMoreOpen=false;
 function matchLabel(base, cand){
-  const sg = base.s===cand.s;                              // 천간 십성(글자) 동일
-  const bg = BRANCH_MAIN[base.b]===BRANCH_MAIN[cand.b];    // 지지 본기 십성 동일
-  const bc = base.b===cand.b;                              // 지지 글자 동일
-  if(sg && bc) return {t:'정확 일치', lv:3};               // 같은 간지
-  if(sg && bg) return {t:'천지 일치', lv:3};               // 천간·지지 십성 동일
-  if(sg) return {t:'천간 일치', lv:2};
-  if(bg) return {t:'지지 일치', lv:2};
-  return {t:'오행 근사', lv:1};
+  const stemChar   = base.s===cand.s;                            // 천간 글자 동일
+  const branchChar = base.b===cand.b;                            // 지지 글자 동일
+  const branchGod  = BRANCH_MAIN[base.b]===BRANCH_MAIN[cand.b];  // 지지 본기(십성) 동일
+  const stemElem   = Math.floor(base.s/2)===Math.floor(cand.s/2);// 천간 오행 동일
+  const branchElem = BRANCH_ELEM[base.b]===BRANCH_ELEM[cand.b];  // 지지 오행 동일
+  if(stemChar && branchChar) return {t:'천지 일치', rank:1, lv:3};
+  if(stemChar && branchGod)  return {t:'십성 일치', rank:2, lv:2};
+  if(stemElem && branchElem) return {t:'오행 일치', rank:3, lv:1};
+  return null;
 }
 function simCardHTML(c, isHi){
   const p=pillarOfDate(c.ds), g=godsOf(p);
@@ -848,39 +977,41 @@ function simCardHTML(c, isHi){
     ((c.en.comments&&c.en.comments.length)?'<div class="sim-meta">💬 댓글 '+c.en.comments.length+'</div>':'')+
     '</div>';
 }
-function renderSimilar(){
-  const box=document.getElementById('similarBox');
-  const base=pillarOfDate(sel);
-  const fut=[], past=[];
+function similarMatchesFor(baseDs){
+  const base=pillarOfDate(baseDs);
+  const cands=[];
   for(const ds in state.entries){
-    if(ds===sel) continue;
+    if(ds===baseDs) continue;
     const en=state.entries[ds];
     if(!hasContent(en)) continue;
-    const cp=pillarOfDate(ds);
-    const sc=simScore(base, cp);
-    if(sc<1) continue;
-    const dist=Math.abs(Math.round((Date.parse(ds)-Date.parse(sel))/86400000));
-    (ds>sel?fut:past).push({ds,en,sc,dist,ml:matchLabel(base,cp)});
+    const ml=matchLabel(base, pillarOfDate(ds));
+    if(!ml) continue;
+    const dist=Math.abs(Math.round((Date.parse(ds)-Date.parse(baseDs))/86400000));
+    cands.push({ds,en,ml,dist});
   }
-  if(!fut.length && !past.length){
-    box.innerHTML='<div class="empty">No Similar Log Found</div>';
-    return;
+  const hi=cands.length?cands.slice().sort((a,b)=>a.dist-b.dist)[0].ds:null;
+  cands.sort((a,b)=> a.ml.rank-b.ml.rank || (a.ds<b.ds?1:-1)); // tier 우선 → 최신순
+  return {cands, hi};
+}
+function renderSimilar(){
+  const box=document.getElementById('similarBox');
+  const {cands, hi}=similarMatchesFor(sel);
+  if(!cands.length){ box.innerHTML='<div class="empty">No Similar Log Found</div>'; return; }
+  const top=cands.slice(0,3), rest=cands.slice(3);
+  let html=top.map(c=>simCardHTML(c, c.ds===hi)).join('');
+  if(rest.length){
+    html+='<button class="sim-more" id="simMoreBtn">'+(simMoreOpen?'접기 ▴':(rest.length+'개 더 보기 ▾'))+'</button>';
+    if(simMoreOpen) html+=rest.map(c=>simCardHTML(c, c.ds===hi)).join('');
   }
-  const nf=fut.slice().sort((a,b)=>a.dist-b.dist)[0];
-  const np=past.slice().sort((a,b)=>a.dist-b.dist)[0];
-  let hi=null;
-  if(nf&&np) hi=(nf.dist<=np.dist)?nf.ds:np.ds;
-  else hi=(nf||np).ds;
-  const all=fut.concat(past).sort((a,b)=>a.ds<b.ds?1:-1); // 최신순 (위에서부터)
-  box.innerHTML=all.map(c=>simCardHTML(c, c.ds===hi)).join('');
-  box.querySelectorAll('.sim').forEach(el=>{
-    el.onclick=()=>jumpTo(el.dataset.d);
-  });
+  box.innerHTML=html;
+  const mb=document.getElementById('simMoreBtn');
+  if(mb) mb.onclick=(e)=>{e.stopPropagation(); simMoreOpen=!simMoreOpen; renderSimilar();};
+  box.querySelectorAll('.sim').forEach(el=>{ el.onclick=()=>jumpTo(el.dataset.d); });
 }
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function jumpTo(ds){
   sel=ds; cur={y:+ds.slice(0,4), m:+ds.slice(5,7)};
-  simExpandF=simExpandP=false; view='diary'; renderAll();
+  simMoreOpen=false; view='diary'; renderAll();
 }
 
 // ── 기분별 보기 (전체 기간, 최신순) ───────────────────
@@ -981,6 +1112,21 @@ function unseChartHTML(itemsChrono){
     '<div class="chart-legend"><span><i style="border-color:var(--accent); border-top-style:dashed;"></i>예측</span>'+
     '<span><i style="border-color:#c25a4a;"></i>실제</span></div>';
 }
+function statusLineHTML(p, key, rel){
+  const tg=tonggeun(p.s, p.b);
+  const un=twelveState(p.s,p.b)+'지'+(tg?'*':'');
+  return '<div class="unse-line2" data-k="'+key+'">'+
+    '<span class="un-state'+(tg?' tg':'')+'">'+un+'</span>'+
+    (rel?'<span class="rel'+(rel.color!=null?' e'+rel.color:'')+'">'+rel.label+'</span>':'')+
+    unseTags(key).map(t=>'<span class="utag">#'+esc(t)+'</span>').join('')+
+    '</div>';
+}
+function updateUnseTags(k){
+  const line=document.querySelector('.unse-line2[data-k="'+k+'"]');
+  if(!line) return;
+  line.querySelectorAll('.utag').forEach(e=>e.remove());
+  unseTags(k).forEach(t=>{ const s=document.createElement('span'); s.className='utag'; s.textContent='#'+t; line.appendChild(s); });
+}
 function renderUnse(){
   const curSolar=+todayStr.slice(0,4), curYM=todayStr.slice(0,7);
   const types=[['wol','월운'],['se','세운'],['dae','대운']];
@@ -1012,11 +1158,16 @@ function renderUnse(){
     html=fmonths.map((mo,i)=>{
       const p=monthPillar(mo.ds), yp=yearPillarOf(mo.ds), key='m'+mo.ds;
       const ym=(+mo.ds.slice(0,4))+'.'+(+mo.ds.slice(5,7));
+      const g=godsOf(p), rel=branchRel(yp.b, p.b);
       let h='<div class="card unse-mo">'+
-        '<div class="unse-mohead">'+gzHj(yp)+'년 '+gzHj(p)+'월'+
-          '<span class="unse-meta">'+ym+' · '+twelveState(p.s,p.b)+'지</span>'+
-          '<span class="term-pill">'+mo.term+'</span>'+
-          (unseHas(key)?'<span class="unse-dot"></span>':'')+'</div>'+
+        '<div class="unse-mohead">'+
+          '<span class="um-left">'+gzHj(yp)+'년 '+gzHj(p)+'월'+
+            '<span class="god-pill">'+g.sg+'/'+g.bg+'</span></span>'+
+          '<span class="um-right">'+ym+' • '+mo.term+
+            '<button class="term-bubble" data-term="'+mo.term+'">💬</button>'+
+            (unseHas(key)?'<span class="unse-dot"></span>':'')+'</span>'+
+        '</div>'+
+        statusLineHTML(p, key, rel)+
         unseEditHTML(key, ym+' 월운 통변')+'</div>';
       if(grp && mo.b===leader && i<fmonths.length-1) h+=CDIV;
       return h;
@@ -1029,7 +1180,8 @@ function renderUnse(){
     html=syItems.map((it,i)=>{
       const yp=it.yp, ykey='y'+it.Y;
       let h='<div class="card"><div class="day-title unse-title"><span class="dt-main">'+
-        gzHj(yp)+'년<span class="unse-sub">'+it.Y+' 세운 · '+twelveState(yp.s,yp.b)+'지</span></span></div>'+
+        gzHj(yp)+'년<span class="unse-sub">'+it.Y+' 세운</span></span></div>'+
+        statusLineHTML(yp, ykey, null)+
         unseEditHTML(ykey, it.Y+'년 전체 운세로 들은 통변을 적어두세요')+'</div>';
       if(grp && it.b===leader && i<syItems.length-1) h+=CDIV;
       return h;
@@ -1040,8 +1192,9 @@ function renderUnse(){
     html=daeItems.map(x=>{
       const p=x.p, key='d'+(x.du.start||x.du.gz);
       return '<div class="card"><div class="day-title unse-title"><span class="dt-main">'+
-        gzHj(p)+'대운<span class="unse-sub">'+godLabel(p)+' · '+twelveState(p.s,p.b)+'지 · '+
+        gzHj(p)+'대운<span class="unse-sub">'+godLabel(p)+' · '+
         (x.du.start||'?')+' ~ '+(x.du.end||'?')+'</span></span></div>'+
+        statusLineHTML(p, key, null)+
         unseEditHTML(key, x.du.gz+' 대운 통변')+'</div>';
     }).join('');
   }
@@ -1049,16 +1202,26 @@ function renderUnse(){
   document.getElementById('unseList').innerHTML=html || '<div class="empty">해당하는 항목이 없어요.</div>';
   attachUnseHandlers();
 }
+function autoGrow(el){ el.style.height='auto'; el.style.height=(el.scrollHeight+2)+'px'; }
 function attachUnseHandlers(){
   document.querySelectorAll('.unse-ta').forEach(ta=>{
     const k=ta.dataset.k; ta.value=(state.unse[k]&&state.unse[k].text)||'';
-    ta.oninput=()=>{ unseGet(k).text=ta.value; unseClean(k); save(); };
+    autoGrow(ta);
+    ta.oninput=()=>{ unseGet(k).text=ta.value; unseClean(k); save(); autoGrow(ta); updateUnseTags(k); };
+  });
+  document.querySelectorAll('.term-bubble').forEach(b=>{
+    b.onclick=(e)=>{ e.stopPropagation(); showTermTip(b, b.dataset.term); };
   });
   const addCmt=(k)=>{
     const inp=document.querySelector('.unse-ci[data-k="'+k+'"]');
     const t=inp.value.trim(); if(!t) return;
     unseGet(k).comments.push({ts:Date.now(), text:t}); save(); renderUnse();
   };
+  document.querySelectorAll('.unse-ci').forEach(inp=>{
+    autoGrow(inp);
+    const btn=document.querySelector('.unse-cs[data-k="'+inp.dataset.k+'"]');
+    inp.oninput=()=>{ autoGrow(inp); if(btn) btn.classList.toggle('active', inp.value.trim().length>0); };
+  });
   document.querySelectorAll('.unse-cs').forEach(btn=>{ btn.onclick=()=>addCmt(btn.dataset.k); });
   document.querySelectorAll('.cmt-del[data-uk]').forEach(b=>{
     b.onclick=()=>{ if(confirm('이 댓글을 삭제할까요?')){
@@ -1074,7 +1237,7 @@ function attachUnseHandlers(){
 // ── 대시보드 ──────────────────────────────────────────
 const ELEM_COLORS=['#3e7a35','#c13b2a','#a1713a','#8b8778','#33302b'];
 const ELEM_COLORS_LT=['#7fae76','#df7f71','#c9a06e','#b3b0a4','#6e6a63'];
-const ST_CATS=[...MOODS, {k:'none', e:'📝', t:'기분 없음'}];
+const ST_CATS=[...MOODS, {k:'none', e:'😶', t:'기분없음'}];
 const ELEM_NAMES=['목','화','토','금','수'];
 const ELEM_HANJA=['木','火','土','金','水'];
 let stMode='month', stSel=new Set([todayStr.slice(0,7)]), stQuery='', stTag='', stDetail=null, stQTimer=null, freqMode='elem';
@@ -1159,8 +1322,7 @@ function stRowHTML(ds){
     '<div class="sim-top"><span class="d">'+fmtDot(ds)+' ('+dowOf(ds)+')</span>'+
     gzHj(p)+'<span>'+g.sg+' '+g.bg+'</span>'+(m?'<span>'+m.e+'</span>':'')+
     ((en.comments&&en.comments.length)?'<span class="cbadge">💬'+en.comments.length+'</span>':'')+'</div>'+
-    (en.text?'<div class="sim-text">'+escTags(en.text)+'</div>':'')+
-    (tagsOf(en).length?'<div class="tags">'+tagChipsHTML(en,false)+'</div>':'');
+    (en.text?'<div class="sim-text">'+escTags(en.text)+'</div>':'');
   if(open){
     h+='<div class="cmt-box">'+
       ((en.comments&&en.comments.length)?en.comments.map(c=>
@@ -1237,7 +1399,10 @@ function renderStats(){
   const thisMonth=all.filter(ds=>ds.slice(0,7)===todayStr.slice(0,7)).length;
   const tc={};
   f.forEach(ds=>tagsOf(state.entries[ds]).forEach(t=>tc[t]=(tc[t]||0)+1));
-  const topTag=Object.keys(tc).sort((a,b)=>tc[b]-tc[a]||a.localeCompare(b))[0];
+  const topTags=Object.keys(tc).sort((a,b)=>tc[b]-tc[a]||a.localeCompare(b)).slice(0,3);
+  const tagHtml=topTags.length
+    ? topTags.map(t=>'<span class="kw"><span class="htag">#'+esc(t)+'</span> <span class="kwn">'+tc[t]+'</span></span>').join('')
+    : '<span class="kwn">—</span>';
   const combo={};
   f.forEach(ds=>{const mk=state.entries[ds].mood; if(!mk)return;
     const g=godsOf(pillarOfDate(ds)), key=g.sg+g.bg;
@@ -1246,10 +1411,26 @@ function renderStats(){
   let bestCombo=null,bestScore=-1;
   Object.keys(combo).forEach(k=>{const r=combo[k].pos/combo[k].n;
     if(r>bestScore||(r===bestScore&&bestCombo&&combo[k].n>combo[bestCombo].n)){bestScore=r;bestCombo=k;}});
+  let luckyRow;
+  if(bestCombo && combo[bestCombo].n>=3){
+    luckyRow='<div class="sr"><span class="sl">최고의 십성</span><span class="sv">'+bestCombo+' <span class="kwn">('+combo[bestCombo].n+')</span></span></div>';
+  }else{
+    const scc={}, bcc={};
+    f.filter(ds=>['best','good'].includes(state.entries[ds].mood)).forEach(ds=>{
+      const p=pillarOfDate(ds); scc[p.s]=(scc[p.s]||0)+1; bcc[p.b]=(bcc[p.b]||0)+1;});
+    const topIdx=cnt=>{const vals=Object.values(cnt); const mx=vals.length?Math.max(...vals):0;
+      return {idx:Object.keys(cnt).filter(k=>cnt[k]===mx).map(Number), n:mx};};
+    const ts=topIdx(scc), tb=topIdx(bcc);
+    const stemH=ts.n? ts.idx.map(s=>'<span class="e'+Math.floor(s/2)+'">'+STEM_HANJA[s]+'</span>').join('·')+' <span class="kwn">('+ts.n+')</span>':'—';
+    const branchH=tb.n? tb.idx.map(b=>'<span class="e'+BRANCH_ELEM[b]+'">'+BRANCH_HANJA[b]+'</span>').join('·')+' <span class="kwn">('+tb.n+')</span>':'—';
+    luckyRow='<div class="sr"><span class="sl">럭키데이</span><span class="sv"><span class="lk">천간 '+stemH+'</span><span class="lk">지지 '+branchH+'</span></span></div>';
+  }
   document.getElementById('stCards').innerHTML=
-    '<div class="st-card"><div class="v">'+f.length+'</div><div class="l">총 기록일</div></div>'+
-    '<div class="st-card"><div class="v" style="font-size:15px;">'+(topTag?'#'+esc(topTag):'—')+'</div><div class="l">최다 키워드</div></div>'+
-    '<div class="st-card"><div class="v" style="font-size:14px;">'+(bestCombo||'—')+'</div><div class="l">최고의 십성</div></div>';
+    '<div class="st-summary">'+
+      '<div class="sr"><span class="sl">총 기록일</span><span class="sv">'+f.length+'일</span></div>'+
+      '<div class="sr"><span class="sl">최다 키워드</span><span class="sv">'+tagHtml+'</span></div>'+
+      luckyRow+
+    '</div>';
 
   const sc=document.getElementById('stSearchCard');
   sc.hidden=false;
@@ -1288,8 +1469,9 @@ function renderStats(){
   }
   const mc={};
   f.forEach(ds=>{const k=state.entries[ds].mood||'none'; mc[k]=(mc[k]||0)+1;});
-  const mx=Math.max(1,...ST_CATS.map(c=>mc[c.k]||0));
-  main.innerHTML='<div class="mbars">'+ST_CATS.map(c=>{
+  const cats=ST_CATS.filter(c=>c.k!=='none' || (mc['none']||0)>0); // 기분없음은 있을 때만
+  const mx=Math.max(1,...cats.map(c=>mc[c.k]||0));
+  main.innerHTML='<div class="mbars">'+cats.map(c=>{
     const n=mc[c.k]||0;
     return '<button class="mbar'+(stDetail===c.k?' on':'')+'" data-k="'+c.k+'">'+
       '<span class="cnt">'+n+'</span>'+
@@ -1337,31 +1519,47 @@ function renderStats(){
 }
 
 // ── 설정 ──────────────────────────────────────────────
+function daeunEnd(start){
+  const m=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec((start||'').trim());
+  if(!m) return '';
+  const t=new Date(Date.UTC(+m[1]+10, +m[2]-1, +m[3]));
+  t.setUTCDate(t.getUTCDate()-1);
+  return ymd(t.getUTCFullYear(), t.getUTCMonth()+1, t.getUTCDate());
+}
 function renderSettings(){
   const selEl=document.getElementById('dmSel');
   selEl.innerHTML=STEMS.map((s,i)=>
     '<option value="'+s+'"'+(s===state.dayMaster?' selected':'')+'>'+
     s+'('+STEM_HANJA[i]+')</option>').join('');
   selEl.onchange=()=>{state.dayMaster=selEl.value; save(); renderAll();};
+  document.querySelectorAll('.wg').forEach(inp=>{
+    inp.value=(state.wonguk&&state.wonguk[inp.dataset.p])||'';
+    inp.onchange=()=>{ if(!state.wonguk) state.wonguk={si:'',il:'',wol:'',yeon:''};
+      state.wonguk[inp.dataset.p]=inp.value.trim(); save(); };
+  });
 
+  state.daeun.sort((a,b)=>{ if(!a.start) return 1; if(!b.start) return -1; return a.start<b.start?-1:(a.start>b.start?1:0); });
   const box=document.getElementById('daeunBox');
   box.innerHTML=state.daeun.map((du,i)=>{
     const p=parseGz(du.gz);
+    const isCur=du.start && du.end && du.start<=todayStr && todayStr<=du.end;
     return '<div class="daeun-row">'+
       '<input class="gz'+(p?'':' bad')+'" maxlength="2" value="'+esc(du.gz||'')+'" data-i="'+i+'" placeholder="간지">'+
-      '<input type="date" class="st" value="'+(du.start||'')+'" data-i="'+i+'">'+
-      '<input type="date" class="en" value="'+(du.end||'')+'" data-i="'+i+'">'+
+      '<input type="text" inputmode="numeric" class="st" value="'+(du.start||'')+'" data-i="'+i+'" placeholder="YYYY-MM-DD">'+
+      '<input type="text" inputmode="numeric" class="en" value="'+(du.end||'')+'" data-i="'+i+'" placeholder="YYYY-MM-DD">'+
       '<button class="rm" data-i="'+i+'">✕</button></div>'+
-      '<div class="daeun-gods">'+(p?gzHj(p)+'대운 → '+godLabel(p):'간지 2글자를 확인해 주세요 (예: 경진)')+'</div>';
+      '<div class="daeun-gods">'+(p?gzHj(p)+'대운 → '+godLabel(p)+(isCur?' <span class="cur-badge">현재</span>':''):'간지 2글자를 확인해 주세요 (예: 경진)')+'</div>';
   }).join('');
   box.querySelectorAll('input.gz').forEach(inp=>{
     inp.onchange=()=>{state.daeun[+inp.dataset.i].gz=inp.value.trim(); save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('input.st').forEach(inp=>{
-    inp.onchange=()=>{state.daeun[+inp.dataset.i].start=inp.value; save(); renderHead();};
+    inp.onchange=()=>{const i=+inp.dataset.i, v=inp.value.trim();
+      state.daeun[i].start=v; const e=daeunEnd(v); if(e) state.daeun[i].end=e;
+      save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('input.en').forEach(inp=>{
-    inp.onchange=()=>{state.daeun[+inp.dataset.i].end=inp.value; save(); renderHead();};
+    inp.onchange=()=>{state.daeun[+inp.dataset.i].end=inp.value.trim(); save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('button.rm').forEach(btn=>{
     btn.onclick=()=>{
@@ -1584,7 +1782,13 @@ document.getElementById('importFile').onchange=(ev)=>{
 // ── 전체 렌더 ─────────────────────────────────────────
 function renderAll(){
   showView(); renderHead();
-  if(view==='diary'){renderCal(); renderDay(); renderSimilar();}
+  if(view==='diary'){
+    renderCal();
+    const listMode=(calMode==='list');
+    document.getElementById('dayCard').hidden=listMode;
+    document.getElementById('similarCard').hidden=listMode;
+    if(!listMode){ renderDay(); renderSimilar(); }
+  }
   if(view==='unse') renderUnse();
   if(view==='stats') renderStats();
   if(view==='settings') renderSettings();
