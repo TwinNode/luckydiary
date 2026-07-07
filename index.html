@@ -228,8 +228,11 @@ select,.set-row input{border:1px solid var(--line); border-radius:10px; backgrou
 .cur-badge{background:var(--accent); color:#fff; border-radius:999px; font-size:9px; font-weight:700; padding:1px 6px; margin-left:4px;}
 .wg{flex:1; min-width:0; width:100%; border:1px solid var(--line); border-radius:10px; background:#fff;
   padding:8px 2px; font-size:13px; text-align:center;}
-.ai-btn{width:100%; border:none; background:var(--accent); color:#fff; border-radius:12px;
-  padding:11px; font-size:13px; font-weight:700; margin-bottom:10px; cursor:pointer;}
+.list-top{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+.ai-btn{flex:0 0 54%; border:none; background:var(--accent); color:#fff; border-radius:10px;
+  padding:8px 6px; font-size:11.5px; font-weight:700; cursor:pointer; white-space:nowrap;}
+.sort-btn{margin-left:auto; border:1px solid var(--line); background:#fff; color:var(--ink);
+  border-radius:10px; padding:8px 11px; font-size:11.5px; font-weight:700; cursor:pointer; white-space:nowrap;}
 .toast{position:fixed; left:50%; bottom:32px; transform:translateX(-50%); background:var(--dark);
   color:#fff; padding:11px 17px; border-radius:12px; font-size:13px; z-index:300; max-width:88%;
   text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.28); opacity:0; transition:opacity .2s;}
@@ -247,8 +250,9 @@ select,.set-row input{border:1px solid var(--line); border-radius:10px; backgrou
 .unse-sub{font-size:11px; color:var(--muted); font-weight:600; margin-left:6px;}
 .unse-mo{padding:11px 13px; margin-bottom:6px;}
 .unse-mohead{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;}
-.um-left{font-size:14px; font-weight:800; display:flex; align-items:center; flex-wrap:wrap;}
-.um-left .hj{font-size:15px; margin-right:3px;}
+.um-left{display:flex; align-items:center; flex-wrap:wrap;}
+.um-gz{font-size:14px; font-weight:800;}
+.um-gz .hj{font-size:15px;}
 .um-right{font-size:11px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:2px; white-space:nowrap;}
 .god-pill{background:var(--accent); color:#fff; font-size:10px; font-weight:700;
   border-radius:999px; padding:1px 8px; margin-left:6px;}
@@ -436,11 +440,16 @@ const HYUNG=[[2,5],[5,8],[2,8],[1,10],[10,7],[1,7],[0,3]];
 const PA=[[0,9],[3,6],[5,8],[2,11],[1,4],[7,10]];
 const HAE=[[0,7],[1,6],[2,5],[3,4],[8,11],[9,10]];
 function hasPair(list,a,b){ return list.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a)); }
+// 삼합/방합 부분 (두 지지가 같은 국에 속하면 합, 색=합화 오행 인덱스 0목1화2토3금4수)
+const SAMHAP3=[[[2,6,10],1],[[8,0,4],4],[[5,9,1],3],[[11,3,7],0]]; // 인오술火 신자진水 사유축金 해묘미木
+const BANGHAP=[[[2,3,4],0],[[5,6,7],1],[[8,9,10],3],[[11,0,1],4]]; // 인묘진木 사오미火 신유술金 해자축水
 function branchRel(a,b){ // a=세운지, b=월운지
-  const nm=(x,y,s)=>BRANCHES[x]+BRANCHES[y]+s;
+  const nm=(x,y,s)=>{const lo=Math.min(x,y),hi=Math.max(x,y); return BRANCHES[lo]+BRANCHES[hi]+s;};
   if(a===b){ return [4,6,9,11].includes(a)?{label:nm(a,b,'자형'),color:null}:null; }
   const key=[Math.min(a,b),Math.max(a,b)].join(',');
   if(YUKHAP[key]!=null) return {label:nm(a,b,'합'), color:YUKHAP[key]};
+  for(const [arr,el] of SAMHAP3){ if(arr.includes(a)&&arr.includes(b)) return {label:nm(a,b,'합'), color:el}; }
+  for(const [arr,el] of BANGHAP){ if(arr.includes(a)&&arr.includes(b)) return {label:nm(a,b,'합'), color:el}; }
   if(hasPair(CHUNG,a,b)) return {label:nm(a,b,'충'), color:null};
   if(hasPair(HYUNG,a,b)) return {label:nm(a,b,'형'), color:null};
   if(WONJIN[key]!=null) return {label:nm(a,b,'원진'), color:null};
@@ -553,6 +562,7 @@ let calMode='cal';
 let moodSel='best';
 let expandedRow=null;
 let listOpen=new Set();
+let listSort='recent';
 let saveTimer=null;
 let unseSamhap='all', unseOpen=null, unseType='wol';
 
@@ -776,9 +786,13 @@ function renderList(){
   const box=document.getElementById('listBox');
   const pre=ymd(cur.y,cur.m,1), post=ymd(cur.y,cur.m,31);
   const days=Object.keys(state.entries)
-    .filter(ds=>ds>=pre && ds<=post && hasContent(state.entries[ds]))
-    .sort();
-  const aiBtn='<button class="ai-btn" id="aiPromptBtn">🤖 최근 3개월 AI 분석 프롬프트 복사</button>';
+    .filter(ds=>ds>=pre && ds<=post && hasContent(state.entries[ds]));
+  if(listSort==='recent') days.sort((a,b)=>a<b?1:-1);           // 최근 날짜순 (오늘→1일)
+  else days.sort((a,b)=>((state.entries[a].ts||0)-(state.entries[b].ts||0))); // 등록일 오름차순
+  const topRow='<div class="list-top">'+
+    '<button class="ai-btn" id="aiPromptBtn">🤖 AI 프롬프트 복사</button>'+
+    '<button class="sort-btn" id="listSortBtn">'+(listSort==='recent'?'최근 날짜순 ▼':'등록일 ▲')+'</button>'+
+    '</div>';
   const attach=()=>{
     const b=document.getElementById('aiPromptBtn');
     if(b) b.onclick=async()=>{
@@ -788,13 +802,15 @@ function renderList(){
         ta.select(); try{document.execCommand('copy');}catch(_){} ta.remove(); }
       toast('프롬프트와 3개월 일운 기록이 복사되었습니다.');
     };
+    const s=document.getElementById('listSortBtn');
+    if(s) s.onclick=()=>{ listSort=(listSort==='recent')?'reg':'recent'; renderList(); };
   };
   if(!days.length){
-    box.innerHTML=aiBtn+'<div class="empty">이 달에는 아직 기록이 없어요.</div>';
+    box.innerHTML=topRow+'<div class="empty">이 달에는 아직 기록이 없어요.</div>';
     attach();
     return;
   }
-  box.innerHTML=aiBtn+days.map(ds=>{
+  box.innerHTML=topRow+days.map(ds=>{
     const p=pillarOfDate(ds), g=godsOf(p), en=state.entries[ds];
     const m=MOODS.find(x=>x.k===en.mood);
     const open=listOpen.has(ds);
@@ -853,7 +869,7 @@ function buildAIPrompt(){
   });
   const data=order.length? order.map(mk=>'['+mk+'] {'+gGod[mk]+'}\n'+groups[mk].join('\n')).join('\n\n') : '(기록 없음)';
   return '사주 명리학의 고수 관점에서 대운과 세운이라는 거대한 틀 안에서 월운과 일운을 맞이했을 때의 운의 흐름을 심층 분석해줘.\n'+
-    '내 사주 일간은 '+ilgan+'이고, 원국은 '+wong+'고 현재 대운은 '+daeStr+'이야. 아래는 내 실제 3개월 임상기록이야. 기간은 {'+start+'}부터 {'+end+'}까지. 현재 {'+wolStr+'} 풀이에 중점을 두고, 그동안 3개월 임상을 바탕으로 어떤 오행/십성일때 길흉인지 분석해주고 그 근거를 객관적으로 제시해줘.\n\n'+data;
+    '내 사주 일간은 '+ilgan+'이고, 원국은 '+wong+'고 현재 대운은 '+daeStr+'이야. 아래는 내 실제 3개월 임상기록이야. 기간은 {'+start+'}부터 {'+end+'}까지. 오늘 날짜는 {'+todayStr+'}이니 현재 월운 {'+wolStr+'} 풀이에 중점을 두고, 그동안 3개월 임상을 바탕으로 어떤 오행/십성일때 길흉인지 분석해주고 그 근거를 객관적으로 제시해줘.\n\n'+data;
 }
 
 // ── 선택 날짜 카드 ────────────────────────────────────
@@ -1161,11 +1177,10 @@ function renderUnse(){
       const g=godsOf(p), rel=branchRel(yp.b, p.b);
       let h='<div class="card unse-mo">'+
         '<div class="unse-mohead">'+
-          '<span class="um-left">'+gzHj(yp)+'년 '+gzHj(p)+'월'+
+          '<span class="um-left"><span class="um-gz">'+gzHj(yp)+'년 '+gzHj(p)+'월</span>'+
             '<span class="god-pill">'+g.sg+'/'+g.bg+'</span></span>'+
           '<span class="um-right">'+ym+' • '+mo.term+
-            '<button class="term-bubble" data-term="'+mo.term+'">💬</button>'+
-            (unseHas(key)?'<span class="unse-dot"></span>':'')+'</span>'+
+            '<button class="term-bubble" data-term="'+mo.term+'">💬</button></span>'+
         '</div>'+
         statusLineHTML(p, key, rel)+
         unseEditHTML(key, ym+' 월운 통변')+'</div>';
@@ -1389,6 +1404,7 @@ function renderStats(){
     b.onclick=()=>{
       if(stSel.has(b.dataset.v)) stSel.delete(b.dataset.v);
       else stSel.add(b.dataset.v);
+      stDetail=null;
       renderStats();
     };
   });
@@ -1398,13 +1414,13 @@ function renderStats(){
   const cat=stDetail?ST_CATS.find(c=>c.k===stDetail):null;
   const thisMonth=all.filter(ds=>ds.slice(0,7)===todayStr.slice(0,7)).length;
   const tc={};
-  f.forEach(ds=>tagsOf(state.entries[ds]).forEach(t=>tc[t]=(tc[t]||0)+1));
+  src.forEach(ds=>tagsOf(state.entries[ds]).forEach(t=>tc[t]=(tc[t]||0)+1));
   const topTags=Object.keys(tc).sort((a,b)=>tc[b]-tc[a]||a.localeCompare(b)).slice(0,3);
   const tagHtml=topTags.length
     ? topTags.map(t=>'<span class="kw"><span class="htag">#'+esc(t)+'</span> <span class="kwn">'+tc[t]+'</span></span>').join('')
     : '<span class="kwn">—</span>';
   const combo={};
-  f.forEach(ds=>{const mk=state.entries[ds].mood; if(!mk)return;
+  src.forEach(ds=>{const mk=state.entries[ds].mood; if(!mk)return;
     const g=godsOf(pillarOfDate(ds)), key=g.sg+g.bg;
     if(!combo[key])combo[key]={pos:0,n:0}; combo[key].n++;
     if(mk==='best'||mk==='good')combo[key].pos++;});
@@ -1412,11 +1428,11 @@ function renderStats(){
   Object.keys(combo).forEach(k=>{const r=combo[k].pos/combo[k].n;
     if(r>bestScore||(r===bestScore&&bestCombo&&combo[k].n>combo[bestCombo].n)){bestScore=r;bestCombo=k;}});
   let luckyRow;
-  if(bestCombo && combo[bestCombo].n>=3){
+  if(!cat && bestCombo && combo[bestCombo].n>=3){
     luckyRow='<div class="sr"><span class="sl">최고의 십성</span><span class="sv">'+bestCombo+' <span class="kwn">('+combo[bestCombo].n+')</span></span></div>';
   }else{
     const scc={}, bcc={};
-    f.filter(ds=>['best','good'].includes(state.entries[ds].mood)).forEach(ds=>{
+    (cat?src:src.filter(ds=>['best','good'].includes(state.entries[ds].mood))).forEach(ds=>{
       const p=pillarOfDate(ds); scc[p.s]=(scc[p.s]||0)+1; bcc[p.b]=(bcc[p.b]||0)+1;});
     const topIdx=cnt=>{const vals=Object.values(cnt); const mx=vals.length?Math.max(...vals):0;
       return {idx:Object.keys(cnt).filter(k=>cnt[k]===mx).map(Number), n:mx};};
@@ -1427,7 +1443,7 @@ function renderStats(){
   }
   document.getElementById('stCards').innerHTML=
     '<div class="st-summary">'+
-      '<div class="sr"><span class="sl">총 기록일</span><span class="sv">'+f.length+'일</span></div>'+
+      '<div class="sr"><span class="sl">'+(cat?cat.e+' '+cat.t:'총 기록일')+'</span><span class="sv">'+src.length+'일</span></div>'+
       '<div class="sr"><span class="sl">최다 키워드</span><span class="sv">'+tagHtml+'</span></div>'+
       luckyRow+
     '</div>';
@@ -1526,6 +1542,13 @@ function daeunEnd(start){
   t.setUTCDate(t.getUTCDate()-1);
   return ymd(t.getUTCFullYear(), t.getUTCMonth()+1, t.getUTCDate());
 }
+function fmtDateInput(s){
+  const d=(s||'').replace(/\D/g,'').slice(0,8);
+  let out=d.slice(0,4);
+  if(d.length>4) out+='-'+d.slice(4,6);
+  if(d.length>6) out+='-'+d.slice(6,8);
+  return out;
+}
 function renderSettings(){
   const selEl=document.getElementById('dmSel');
   selEl.innerHTML=STEMS.map((s,i)=>
@@ -1551,15 +1574,18 @@ function renderSettings(){
       '<div class="daeun-gods">'+(p?gzHj(p)+'대운 → '+godLabel(p)+(isCur?' <span class="cur-badge">현재</span>':''):'간지 2글자를 확인해 주세요 (예: 경진)')+'</div>';
   }).join('');
   box.querySelectorAll('input.gz').forEach(inp=>{
-    inp.onchange=()=>{state.daeun[+inp.dataset.i].gz=inp.value.trim(); save(); renderSettings(); renderHead();};
+    inp.oninput=()=>{ inp.value=inp.value.replace(/\s/g,'').slice(0,2); };
+    inp.onchange=()=>{state.daeun[+inp.dataset.i].gz=inp.value.trim().slice(0,2); save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('input.st').forEach(inp=>{
-    inp.onchange=()=>{const i=+inp.dataset.i, v=inp.value.trim();
+    inp.oninput=()=>{ inp.value=fmtDateInput(inp.value); };
+    inp.onchange=()=>{const i=+inp.dataset.i, v=fmtDateInput(inp.value);
       state.daeun[i].start=v; const e=daeunEnd(v); if(e) state.daeun[i].end=e;
       save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('input.en').forEach(inp=>{
-    inp.onchange=()=>{state.daeun[+inp.dataset.i].end=inp.value.trim(); save(); renderSettings(); renderHead();};
+    inp.oninput=()=>{ inp.value=fmtDateInput(inp.value); };
+    inp.onchange=()=>{state.daeun[+inp.dataset.i].end=fmtDateInput(inp.value); save(); renderSettings(); renderHead();};
   });
   box.querySelectorAll('button.rm').forEach(btn=>{
     btn.onclick=()=>{
