@@ -790,7 +790,7 @@ function renderList(){
   if(listSort==='recent') days.sort((a,b)=>a<b?1:-1);           // 최근 날짜순 (오늘→1일)
   else days.sort((a,b)=>((state.entries[a].ts||0)-(state.entries[b].ts||0))); // 등록일 오름차순
   const topRow='<div class="list-top">'+
-    '<button class="ai-btn" id="aiPromptBtn">🤖 AI 프롬프트 복사</button>'+
+    '<button class="ai-btn" id="aiPromptBtn">AI 프롬프트 복사 (최근 3개월)</button>'+
     '<button class="sort-btn" id="listSortBtn">'+(listSort==='recent'?'최근 날짜순 ▼':'등록일 ▲')+'</button>'+
     '</div>';
   const attach=()=>{
