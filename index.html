@@ -838,7 +838,7 @@ function buildAIPrompt(){
   const w=state.wonguk||{};
   const wong=[w.yeon&&w.yeon+'년', w.wol&&w.wol+'월', w.il&&w.il+'일', w.si&&w.si+'시'].filter(Boolean).join(' ')||'(원국 미입력)';
   const dm=state.dayMaster, ilgan=dm+ELEM_NAMES[Math.floor(STEMS.indexOf(dm)/2)];
-  const du=daeunFor(todayStr), daeStr=du?du.gz+'대운':'(대운 미입력)';
+  const du=daeunFor(todayStr), daeStr=du?du.gz+'대운':'(대운 미입력 in 설정)';
   const mp=monthPillar(todayStr), wolStr=STEMS[mp.s]+BRANCHES[mp.b]+'월';
   const days=Object.keys(state.entries).filter(ds=>ds>=start&&ds<=end&&hasContent(state.entries[ds])).sort();
   const groups={}, gGod={}, order=[];
@@ -853,7 +853,7 @@ function buildAIPrompt(){
   });
   const data=order.length? order.map(mk=>'['+mk+'] {'+gGod[mk]+'}\n'+groups[mk].join('\n')).join('\n\n') : '(기록 없음)';
   return '사주 명리학의 고수 관점에서 대운과 세운이라는 거대한 틀 안에서 월운과 일운을 맞이했을 때의 운의 흐름을 심층 분석해줘.\n'+
-    '내 사주 일간은 {'+ilgan+'}이고, 원국은 {'+wong+'}고 현재 대운은 {'+daeStr+'}이야. 아래는 내 실제 3개월 임상기록이야. 기간은 {'+start+'}부터 {'+end+'}까지. 이번달은 {'+wolStr+'}이고 그동안 3개월 임상을 바탕으로 어떤 오행/십성일때 길흉인지 분석해주고 그 근거를 객관적으로 제시해줘.\n\n'+data;
+    '내 사주 일간은 '+ilgan+'이고, 원국은 '+wong+'고 현재 대운은 '+daeStr+'이야. 아래는 내 실제 3개월 임상기록이야. 기간은 {'+start+'}부터 {'+end+'}까지. 현재 {'+wolStr+'} 풀이에 중점을 두고, 그동안 3개월 임상을 바탕으로 어떤 오행/십성일때 길흉인지 분석해주고 그 근거를 객관적으로 제시해줘.\n\n'+data;
 }
 
 // ── 선택 날짜 카드 ────────────────────────────────────
